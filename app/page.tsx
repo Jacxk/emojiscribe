@@ -32,7 +32,8 @@ export default function Home() {
   const [error, setError] = useState("")
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const handleGetEmoji = async () => {
+  const handleGetEmoji = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     if (!text.trim()) return
 
     setIsLoading(true)
@@ -71,16 +72,6 @@ export default function Home() {
       })
     } finally {
       setIsLoading(false)
-      // Refocus the input after submission
-      setTimeout(() => {
-        inputRef.current?.focus()
-      }, 100)
-    }
-  }
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      handleGetEmoji()
     }
   }
 
@@ -100,23 +91,21 @@ export default function Home() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex gap-2">
+            <form className="flex gap-2" onSubmit={handleGetEmoji}>
               <Input
                 ref={inputRef}
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                onKeyPress={handleKeyPress}
                 placeholder="Try: 'sad meow meow' or 'big cow enters room'"
                 className="text-lg p-4 h-12 flex-1"
                 disabled={isLoading}
                 aria-label="Enter text to convert to emoji"
                 aria-describedby="input-description"
               />
-              <Button onClick={handleGetEmoji} disabled={!text.trim() || isLoading} size="lg" className="h-12 px-6">
-                <Search className="h-4 w-4 mr-2" />
-                {isLoading ? "Analyzing..." : "Get Emojis"}
+              <Button type="submit" disabled={!text.trim() || isLoading} size="lg" className="h-12 px-6">
+                {isLoading ? "Analyzing..." : "Emojiscribe"}
               </Button>
-            </div>
+            </form>
             {error && <div className="text-red-600 text-sm bg-red-50 p-3 rounded-lg">Error: {error}</div>}
             <span id="input-description" className="sr-only">
               Enter any text and we'll find up to 5 emoji matches with AI analysis
