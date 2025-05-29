@@ -17,10 +17,10 @@ interface EmojiProps {
 
 export default function Emoji({ text, isLoading, matches }: EmojiProps) {
   const getMatchColor = (percentage: number) => {
-    if (percentage >= 80) return "bg-green-100 text-green-800"
-    if (percentage >= 60) return "bg-yellow-100 text-yellow-800"
-    if (percentage >= 40) return "bg-orange-100 text-orange-800"
-    return "bg-red-100 text-red-800"
+    if (percentage >= 80) return "bg-green-100 text-green-800 hover:bg-green-200"
+    if (percentage >= 60) return "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
+    if (percentage >= 40) return "bg-orange-100 text-orange-800 hover:bg-orange-200"
+    return "bg-red-100 text-red-800 hover:bg-red-200"
   }
 
   if (isLoading) {
