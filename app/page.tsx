@@ -84,48 +84,6 @@ export default function Home() {
     }
   }
 
-  // Example API response for display
-  const exampleResponse = {
-    text: "happy cat",
-    matches: [
-      {
-        emoji: "😸",
-        matchPercentage: 92,
-        matchedKeywords: ["happy", "cat", "grinning"],
-        category: "emotion",
-        name: "grinning cat with smiling eyes",
-      },
-      {
-        emoji: "😺",
-        matchPercentage: 87,
-        matchedKeywords: ["happy", "cat", "smiling"],
-        category: "emotion",
-        name: "grinning cat",
-      },
-      {
-        emoji: "🐱",
-        matchPercentage: 65,
-        matchedKeywords: ["cat", "face"],
-        category: "animal",
-        name: "cat face",
-      },
-      {
-        emoji: "😊",
-        matchPercentage: 48,
-        matchedKeywords: ["happy", "smiling"],
-        category: "emotion",
-        name: "smiling face with smiling eyes",
-      },
-      {
-        emoji: "🙂",
-        matchPercentage: 32,
-        matchedKeywords: ["happy"],
-        category: "emotion",
-        name: "slightly smiling face",
-      },
-    ],
-  }
-
   return (
     <main className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 p-4">
       <section itemScope itemType="https://schema.org/WebApplication" className="max-w-2xl mx-auto pt-16">
@@ -138,8 +96,7 @@ export default function Home() {
           <CardHeader>
             <CardTitle>Type your message</CardTitle>
             <CardDescription>
-              Enter any text and get up to 5 emoji matches with percentages. Include emojis in your text for higher
-              ratings!
+              Enter any text to get an emoji that best matches it.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -149,7 +106,7 @@ export default function Home() {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Try: 'I love cats 😸', 'smiling face', or 'happy birthday'"
+                placeholder="Try: 'sad meow meow' or 'big cow enters room'"
                 className="text-lg p-4 h-12 flex-1"
                 disabled={isLoading}
                 aria-label="Enter text to convert to emoji"
@@ -181,12 +138,11 @@ export default function Home() {
                   <h4 className="font-semibold mb-2">Request:</h4>
                   <div className="bg-gray-100 p-4 rounded-lg">
                     <code className="text-sm">
-                      POST /api/emoji
+                      curl -X POST https://emojiscribe.vercel.app/api/emoji \
                       <br />
-                      Content-Type: application/json
+                      -H "Content-Type: application/json" \
                       <br />
-                      <br />
-                      {JSON.stringify({ text: "happy cat" }, null, 2)}
+                      -d '{JSON.stringify({ text }, null, 2)}'
                     </code>
                   </div>
                 </div>
@@ -194,7 +150,7 @@ export default function Home() {
                   <h4 className="font-semibold mb-2">Response:</h4>
                   <div className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
                     <pre className="text-sm">
-                      <code>{JSON.stringify(exampleResponse, null, 2)}</code>
+                      <code>{JSON.stringify(emojiData, null, 2)}</code>
                     </pre>
                   </div>
                 </div>
