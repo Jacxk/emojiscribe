@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+}
+
+model Emoji {
+  id        String   @id @default(cuid())
+  emoji     String   @unique
+  name      String
+  keywords  String[] // Array of keywords for semantic matching
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  userSelections UserEmojiSelection[]
+}
+
+model UserEmojiSelection {
+  id        String   @id @default(cuid())
+  inputText String   // The text that was input by the user
+  emojiId   String   // Reference to the selected emoji
+  createdAt DateTime @default(now())
+
+  // Relations
+  emoji     Emoji    @relation(fields: [emojiId], references: [id])
+
+  @@index([inputText])
+  @@index([emojiId])
+}
