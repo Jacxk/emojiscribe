@@ -1,9 +1,10 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
+import type React from "react";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { GoogleAdSense } from "next-google-adsense";
+import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Emojiscribe - AI-Powered Text to Emoji Converter",
@@ -64,13 +65,13 @@ export const metadata: Metadata = {
     canonical: "https://emojiscribe.vercel.app",
   },
   category: "technology",
-    generator: 'v0.dev'
-}
+  generator: "v0.dev",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -90,7 +91,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebApplication",
               name: "Emojiscribe",
-              description: "AI-powered text to emoji converter with match percentages and detailed analysis",
+              description:
+                "AI-powered text to emoji converter with match percentages and detailed analysis",
               url: "https://emojiscribe.vercel.app",
               applicationCategory: "UtilityApplication",
               operatingSystem: "Web Browser",
@@ -114,7 +116,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <GoogleAdSense publisherId="pub-1951964586756124" />
+        {children}
+      </body>
     </html>
-  )
+  );
 }
